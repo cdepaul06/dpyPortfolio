@@ -1,4 +1,10 @@
-import { motion, type Variants } from "framer-motion";
+import type { MouseEvent } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  type Variants,
+} from "framer-motion";
 import { Badge, Button } from "dpyui";
 import { CodeBracketSquareIcon } from "@heroicons/react/24/outline";
 
@@ -6,7 +12,7 @@ export interface Project {
   name: string;
   description: string;
   tech: string[];
-  githubUrl: string;
+  githubUrl: string | null;
   image?: string;
 }
 
@@ -25,13 +31,31 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    mouseX.set(event.clientX - rect.left);
+    mouseY.set(event.clientY - rect.top);
+  };
+
+  const spotlight = useMotionTemplate`radial-gradient(160px circle at ${mouseX}px ${mouseY}px, hsl(var(--primary) / 0.16), transparent 70%)`;
+
   return (
     <motion.div
       variants={card}
       whileHover={{ y: -8 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className='group flex flex-col overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg'
+      onMouseMove={handleMouseMove}
+      className='group relative flex flex-col overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg'
     >
+      <motion.div
+        aria-hidden
+        className='pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100'
+        style={{ background: spotlight }}
+      />
+
       <div className='relative flex h-40 items-center justify-center overflow-hidden bg-muted/50'>
         {project.image ? (
           <img
@@ -68,15 +92,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         <div className='mt-4'>
-          <Button asChild variant='outline' size='sm'>
-            <a
-              href={project.githubUrl}
-              target='_blank'
-              rel='noreferrer noopener'
-            >
-              View on GitHub
-            </a>
-          </Button>
+          {project.githubUrl ? (
+            <Button asChild variant='outline' size='sm'>
+              <a
+                href={project.githubUrl}
+                target='_blank'
+                rel='noreferrer noopener'
+              >
+                View on GitHub
+              </a>
+            </Button>
+          ) : null}
         </div>
       </div>
     </motion.div>

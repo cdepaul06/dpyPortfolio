@@ -1,27 +1,42 @@
 import { motion, type Variants } from "framer-motion";
 import { ProjectCard, type Project } from "./ProjectCard";
+import portfolioImage from "../../assets/projects/portfolio.png";
+import portfolioImageV1 from "../../assets/projects/portfolio-v1.png";
+import moodyImage from "../../assets/projects/moody.png";
+import spinwheelImage from "../../assets/projects/spinwheel.png";
 
 const projects: Project[] = [
   {
-    name: "CD Developer Portfolio",
+    name: "CD Developer Portfolio v2",
     description:
       "A personal portfolio website showcasing my skills and projects as a software developer.",
     tech: ["React", "TypeScript", "Tailwind"],
-    githubUrl: "https://github.com/your-username/project-one",
+    githubUrl: "https://github.com/cdepaul06/dpyPortfolio",
+    image: portfolioImage,
   },
   {
-    name: "Project Two",
+    name: "CD Developer Portfolio v1",
     description:
-      "TODO: Replace with a short description of what this project does and why you built it.",
-    tech: ["C#", ".NET", "SQL"],
-    githubUrl: "https://github.com/your-username/project-two",
+      "A personal portfolio website showcasing my skills and projects as a software developer.",
+    tech: ["React", "TypeScript", "Tailwind"],
+    githubUrl: "https://github.com/cdepaul06/developer-cd",
+    image: portfolioImageV1,
   },
   {
-    name: "Project Three",
+    name: "Moody App",
     description:
-      "TODO: Replace with a short description of what this project does and why you built it.",
-    tech: ["React", "Vite", "Framer Motion"],
-    githubUrl: "https://github.com/your-username/project-three",
+      "A personal project I developed using React Native/TypeScript so that my wife and I could track our moods and see what activities, foods, and other factors correlate with our mental health.",
+    tech: ["React Native", "TypeScript", "Vite"],
+    githubUrl: "https://github.com/cdepaul06/Moody",
+    image: moodyImage,
+  },
+  {
+    name: "Spinner Wheel",
+    description:
+      "A simple spinner wheel app built with React Native and TypeScript. It allows users to save a list locally and spin a wheel to make random selections from that list.",
+    tech: ["React Native", "TypeScript", "Tailwind"],
+    githubUrl: "https://github.com/cdepaul06/Spinwheel",
+    image: spinwheelImage,
   },
 ];
 
@@ -32,7 +47,7 @@ const container: Variants = {
 
 export function Projects() {
   return (
-    <section className='relative flex h-[80svh] flex-col text-center border rounded-lg'>
+    <section className='relative flex h-[80svh] flex-col text-center rounded-lg bg-muted/20'>
       <div className='flex h-full flex-col overflow-y-auto p-6'>
         <div className='my-auto flex w-full flex-col items-center'>
           <h2 className='text-2xl font-semibold'>Projects</h2>

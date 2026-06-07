@@ -8,7 +8,7 @@ export function About() {
   const [showWork, setShowWork] = useState(false);
 
   return (
-    <section className='relative flex h-[80svh] flex-col text-center border rounded-lg'>
+    <section className='relative flex h-[80svh] flex-col text-center rounded-lg bg-muted/20'>
       <div className='flex h-full flex-col overflow-y-auto p-6'>
         <div className='my-auto flex w-full flex-col items-center'>
           <h2 className='text-2xl font-semibold'>About</h2>
