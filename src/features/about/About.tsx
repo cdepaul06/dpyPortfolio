@@ -45,7 +45,7 @@ export function About() {
               <div className='work-accordion-border relative overflow-hidden rounded-lg p-[1.5px]'>
                 <div
                   className={`relative overflow-hidden rounded-[calc(var(--radius)-1.5px)] transition-colors duration-300 ${
-                    showWork ? "bg-card" : "bg-muted/40"
+                    showWork ? "bg-card" : "bg-muted"
                   }`}
                 >
                   <button

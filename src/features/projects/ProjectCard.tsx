@@ -1,10 +1,4 @@
-import type { MouseEvent } from "react";
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  type Variants,
-} from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Badge, Button } from "dpyui";
 import { CodeBracketSquareIcon } from "@heroicons/react/24/outline";
 
@@ -31,17 +25,6 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    mouseX.set(event.clientX - rect.left);
-    mouseY.set(event.clientY - rect.top);
-  };
-
-  const spotlight = useMotionTemplate`radial-gradient(160px circle at ${mouseX}px ${mouseY}px, hsl(var(--primary) / 0.16), transparent 70%)`;
-
   return (
     <motion.div
       variants={card}
@@ -60,16 +43,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className='project-card-border absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
 
         {/* Card content */}
-        <div
-          onMouseMove={handleMouseMove}
-          className='relative flex flex-col overflow-hidden rounded-[calc(var(--radius)-1.5px)] bg-card shadow-sm transition-shadow duration-300 group-hover:shadow-lg'
-        >
-          <motion.div
-            aria-hidden
-            className='pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100'
-            style={{ background: spotlight }}
-          />
-
+        <div className='relative flex flex-col overflow-hidden rounded-[calc(var(--radius)-1.5px)] bg-card shadow-sm transition-shadow duration-300 group-hover:shadow-lg'>
           <div className='relative flex h-40 items-center justify-center overflow-hidden bg-muted/50'>
             {project.image ? (
               <img

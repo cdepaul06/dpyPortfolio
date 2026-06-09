@@ -6,11 +6,13 @@ import { About } from '../features/about/About'
 import { Projects } from '../features/projects/Projects'
 import { Contact } from '../features/contact/Contact'
 import { FloatingThemeToggle } from '../features/theme/FloatingThemeToggle'
+import { CursorGlow } from '../shared/components/CursorGlow'
 
 function App() {
   const [active, setActive] = useState('home')
   const [snapEnabled, setSnapEnabled] = useState(true)
   const sectionRefs = useRef(new Map<string, HTMLElement>())
+  const sectionRatios = useRef(new Map<string, number>())
   const isProgrammaticScroll = useRef(false)
   const scrollEndTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
@@ -31,10 +33,22 @@ function App() {
     const observer = new IntersectionObserver(
       (entries) => {
         if (isProgrammaticScroll.current) return
-        const visible = entries.find((entry) => entry.isIntersecting)
-        if (visible) setActive(visible.target.id)
+
+        for (const entry of entries) {
+          sectionRatios.current.set(entry.target.id, entry.intersectionRatio)
+        }
+
+        let maxId = ''
+        let maxRatio = 0
+        for (const [id, ratio] of sectionRatios.current) {
+          if (ratio > maxRatio) {
+            maxRatio = ratio
+            maxId = id
+          }
+        }
+        if (maxId) setActive(maxId)
       },
-      { threshold: 0.5 },
+      { threshold: Array.from({ length: 11 }, (_, i) => i / 10) },
     )
 
     sectionRefs.current.forEach((el) => observer.observe(el))
@@ -77,6 +91,7 @@ function App() {
       </section>
 
       <FloatingThemeToggle />
+      <CursorGlow />
     </div>
   )
 }
