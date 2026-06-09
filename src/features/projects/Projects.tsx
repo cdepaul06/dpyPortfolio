@@ -47,9 +47,9 @@ const container: Variants = {
 
 export function Projects() {
   return (
-    <section className='relative flex h-[80svh] flex-col text-center rounded-lg bg-muted/20'>
-      <div className='flex h-full flex-col overflow-y-auto p-6'>
-        <div className='my-auto flex w-full flex-col items-center'>
+    <section className='relative flex flex-col text-center rounded-lg bg-muted/20'>
+      <div className='flex flex-col p-6'>
+        <div className='flex w-full flex-col items-center'>
           <h2 className='text-2xl font-semibold'>Projects</h2>
           <p className='mt-2 max-w-2xl text-muted-foreground'>
             A few things I've built — source code available on GitHub (for

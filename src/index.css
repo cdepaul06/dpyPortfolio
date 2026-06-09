@@ -63,6 +63,60 @@
   --radius: 0.625rem;
 }
 
+/* Custom scrollbar — desktop/mouse only */
+@media (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.35);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.6);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.35) transparent;
+  }
+}
+
+@property --work-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes work-border-spin {
+  to {
+    --work-border-angle: 360deg;
+  }
+}
+
+.work-accordion-border {
+  background: conic-gradient(
+    from var(--work-border-angle) at 50% 50%,
+    transparent 0%,
+    hsl(var(--primary) / 0.9) 15%,
+    transparent 30%
+  );
+  animation: work-border-spin 4s linear infinite;
+}
+
+.project-card-border {
+  background: conic-gradient(
+    from var(--work-border-angle) at 50% 50%,
+    transparent 0%,
+    hsl(var(--primary) / 0.9) 10%,
+    transparent 20%
+  );
+  animation: work-border-spin 3s linear infinite;
+}
+
 .dark {
   --background: 215 28% 12%;
   --foreground: 40 25% 92%;
