@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type SubmitEvent } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import { Button, Input, Label, Textarea } from 'dpyui'
 
@@ -18,7 +18,7 @@ export function Contact() {
   const [message, setMessage] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const subject = encodeURIComponent(`Portfolio contact from ${name}`)
